@@ -1,3 +1,7 @@
+import numpy as np
+from math import gcd
+from fractions import Fraction as frac
+
 def factorial(num):
     if num == 0:
         return 1
@@ -175,7 +179,21 @@ def eularPiFunction(num):
     integers = phi_func(num)
     return integers
 
-
+def awFunction(num):
+    num = int(num)
+    numbers = eularPiFunction(num)
+    numbers = np.array(numbers)
+    sum = 0
+    for number in numbers:
+        sum = sum + np.reciprocal(float(number))
+    d = gcd(sum.as_integer_ratio()[0],sum.as_integer_ratio()[1])
+    x = sum.as_integer_ratio()[0]//d
+    y = sum.as_integer_ratio()[1]//d
+    print("Resiprocal Sum : ",sum)
+    print((sum.as_integer_ratio()[0],"/",sum.as_integer_ratio()[1]))
+    temp = str(x) +','+ str(y)
+    print(frac(sum.as_integer_ratio()[0],sum.as_integer_ratio()[1]).limit_denominator(100))
+    return sum
 def mainFunc(num):
     i = 0
     count = 0

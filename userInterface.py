@@ -1,9 +1,10 @@
 from tkinter import *
-from main import mainFunc, countPrime, nthPrime, eularPiFunction
+from fractions import Fraction as frac
+from main import mainFunc, countPrime, nthPrime, eularPiFunction, awFunction
 
 root = Tk()
 root.title("Prime Number Calculator")
-root.geometry("498x500")
+root.geometry("498x550")
 
 e = Entry(root, width=30, borderwidth=5)
 e.grid(row=0, column=1, columnspan=3, padx=10, pady=10)
@@ -73,8 +74,19 @@ def button_option_4():
     number = e.get()
     Label(root, text=number).grid(row=0, column=6)
     results = eularPiFunction(number)
+    output.insert(END, ("No of relatively pr's : "+ str(len(results))))
     for result in results:
         output.insert(END, "  " + str(result))
+
+
+def button_option_5():
+    output.delete(0, END)
+    number = e.get()
+    Label(root, text=number).grid(row=0, column=6)
+    sum = awFunction(number)
+    output.insert(END, ("Resiprocal Sum : " + str(sum)))
+    output.insert(END, ("As a fraction : " + str(frac(str(sum)).limit_denominator(100))))
+
 
 label_option = Label(root, text="Choose Option").grid(row=6, column=1, columnspan=3, pady=20)
 button_1 = Button(root, text="1", padx=20, pady=8, command=lambda: button_click(1))
@@ -95,6 +107,7 @@ button_option_1 = Button(root, text="Number of Primes", padx=45, pady=8, command
 button_option_2 = Button(root, text="Check Prime", padx=60, pady=8, command=button_option_2)
 button_option_3 = Button(root, text="nth Prime", padx=68, pady=8, command=button_option_3)
 button_option_4 = Button(root, text="Eular Function", padx=56, pady=8, command=button_option_4)
+button_option_5 = Button(root, text="AW", padx=84, pady=8, command=button_option_5)
 
 button_1.grid(row=4, column=1)
 button_2.grid(row=4, column=2)
@@ -114,5 +127,6 @@ button_option_1.grid(row=8, column=1, columnspan=3)
 button_option_2.grid(row=9, column=1, columnspan=3)
 button_option_3.grid(row=10, column=1, columnspan=3)
 button_option_4.grid(row=11, column=1, columnspan=3)
+button_option_5.grid(row=12, column=1, columnspan=3)
 
 root.mainloop()
