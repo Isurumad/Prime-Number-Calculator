@@ -83,10 +83,10 @@ def button_option_5():
     output.delete(0, END)
     number = e.get()
     Label(root, text=number).grid(row=0, column=6)
-    sum = awFunction(number)
-    output.insert(END, ("Resiprocal Sum : " + str(sum)))
-    output.insert(END, ("As a fraction : " + str(frac(str(sum)).limit_denominator(100))))
-
+    tot,am,mam = awFunction(number)
+    output.insert(END, ("Sum : " + str(tot)))
+    output.insert(END, ("Am : "+str(am) ))
+    output.insert(END, ("MOD Am : "+ str(mam)))
 
 label_option = Label(root, text="Choose Option").grid(row=6, column=1, columnspan=3, pady=20)
 button_1 = Button(root, text="1", padx=20, pady=8, command=lambda: button_click(1))

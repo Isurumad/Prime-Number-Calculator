@@ -177,23 +177,30 @@ def phi_func(x):
 def eularPiFunction(num):
     num = int(num)
     integers = phi_func(num)
+    # print(integers)
     return integers
+
+def remove_eponent(value):
+    decimal = value.split('e')
+    ret_val = format(((float(decimal[0]))*(10**int(decimal[1]))),'.8f')
+    return ret_val
 
 def awFunction(num):
     num = int(num)
     numbers = eularPiFunction(num)
-    numbers = np.array(numbers)
-    sum = 0
-    for number in numbers:
-        sum = sum + np.reciprocal(float(number))
-    d = gcd(sum.as_integer_ratio()[0],sum.as_integer_ratio()[1])
-    x = sum.as_integer_ratio()[0]//d
-    y = sum.as_integer_ratio()[1]//d
-    print("Resiprocal Sum : ",sum)
-    print((sum.as_integer_ratio()[0],"/",sum.as_integer_ratio()[1]))
-    temp = str(x) +','+ str(y)
-    print(frac(sum.as_integer_ratio()[0],sum.as_integer_ratio()[1]).limit_denominator(100))
-    return sum
+    # numbers = np.array(numbers)
+    lcm = numbers[0]
+    for i in numbers[1:]:
+        lcm =lcm * i // gcd(lcm, i)
+
+    tot = 0
+    for j in range(0, len(numbers)):
+        tot_temp = tot + lcm / numbers[j]
+        tot = tot + lcm // numbers[j]
+
+    return tot_temp,tot/pow(num,2),tot%pow(num,2)
+
+
 def mainFunc(num):
     i = 0
     count = 0
